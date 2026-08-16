@@ -1,0 +1,748 @@
+/* ==============================================================================
+   OpenNotify Studio — Elite Typographic & Obsidian-Zinc Color System
+   ============================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+:root {
+  /* ==========================================================================
+     1. High-Contrast Obsidian & Zinc Palette (WCAG AAA Compliant)
+     ========================================================================== */
+  --slate-950: #020617;
+  --slate-900: #0f172a;
+  --slate-800: #1e293b;
+  --slate-700: #334155;
+  --slate-600: #475569;
+  --slate-500: #64748b;
+  --slate-400: #94a3b8;
+  --slate-300: #cbd5e1;
+  --slate-200: #e2e8f0;
+  --slate-100: #f1f5f9;
+  --slate-50:  #f8fafc;
+
+  /* Brand Accents */
+  --brand-blue: #2563eb;
+  --brand-blue-hover: #1d4ed8;
+  --brand-blue-subtle: #eff6ff;
+  --brand-blue-border: #bfdbfe;
+
+  --brand-wa: #16a34a;
+  --brand-wa-hover: #15803d;
+  --brand-wa-subtle: #f0fdf4;
+  --brand-wa-border: #bbf7d0;
+  --brand-wa-dark: #14532d;
+
+  --brand-red: #dc2626;
+  --brand-red-subtle: #fef2f2;
+  --brand-red-border: #fecaca;
+
+  --brand-emerald: #10b981;
+
+  /* Functional Surfaces */
+  --bg-canvas: #f8fafc;
+  --bg-surface: #ffffff;
+  --bg-input: #f1f5f9;
+  --bg-input-focus: #ffffff;
+  --bg-hover: #e2e8f0;
+
+  /* Typography Colors */
+  --text-primary: #0f172a;     /* Deep Obsidian */
+  --text-secondary: #475569;   /* Slate Neutral */
+  --text-tertiary: #64748b;    /* Muted Metadata */
+  --text-quaternary: #94a3b8;  /* Placeholder */
+
+  /* Precision Micro-Borders */
+  --border-subtle: #e2e8f0;
+  --border-medium: #cbd5e1;
+  --border-focus: #2563eb;
+
+  /* Shadows (Atmospheric Diffuse Occlusion) */
+  --shadow-xs: 0 1px 2px 0 rgba(15, 23, 42, 0.04);
+  --shadow-sm: 0 1px 3px 0 rgba(15, 23, 42, 0.06), 0 1px 2px -1px rgba(15, 23, 42, 0.06);
+  --shadow-card: 0 1px 3px 0 rgba(15, 23, 42, 0.05), 0 4px 16px -2px rgba(15, 23, 42, 0.03);
+  --shadow-drawer: -4px 0 24px 0 rgba(15, 23, 42, 0.08);
+  --shadow-btn: 0 1px 2px rgba(37, 99, 235, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  --shadow-btn-wa: 0 1px 2px rgba(22, 163, 74, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+
+  /* Radius System */
+  --radius-frame: 12px;
+  --radius-card: 10px;
+  --radius-btn: 7px;
+  --radius-input: 7px;
+  --radius-tag: 5px;
+  --radius-pill: 9999px;
+
+  /* Component Heights */
+  --height-control: 38px;
+  --height-control-sm: 28px;
+
+  --transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  background-color: var(--bg-canvas);
+  color: var(--text-primary);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11', 'tnum';
+  font-size: 13.5px;
+  line-height: 1.5;
+  letter-spacing: -0.011em;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Page Frame */
+.app-container {
+  max-width: 1180px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Vector Icon System */
+.icon {
+  width: 15px;
+  height: 15px;
+  display: inline-block;
+  vertical-align: middle;
+  flex-shrink: 0;
+  fill: currentColor;
+}
+
+.icon-stroke {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.icon-sm { width: 13px; height: 13px; }
+.icon-md { width: 16px; height: 16px; }
+.icon-lg { width: 19px; height: 19px; }
+
+/* ==============================================================================
+   1. Structured Header
+   ============================================================================== */
+header.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-xs);
+  border-radius: var(--radius-frame);
+  margin-bottom: 16px;
+}
+
+.brand-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brand-icon {
+  width: 30px;
+  height: 30px;
+  background: linear-gradient(135deg, #2563eb 0%, #10b981 100%);
+  border-radius: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.25);
+}
+
+.brand-title {
+  font-size: 14.5px;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  color: var(--text-primary);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.status-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 9px;
+  background: var(--bg-input);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-tag);
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.status-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--brand-emerald);
+  border-radius: 50%;
+  box-shadow: 0 0 6px var(--brand-emerald);
+}
+
+/* ==============================================================================
+   2. Segmented Navigation Bar
+   ============================================================================== */
+.segmented-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.segmented-group {
+  display: inline-flex;
+  background: var(--bg-input);
+  border: 1px solid var(--border-subtle);
+  padding: 3px;
+  border-radius: var(--radius-card);
+  gap: 2px;
+}
+
+.segment-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  padding: 6px 13px;
+  font-family: inherit;
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  border-radius: var(--radius-btn);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: var(--transition);
+  outline: none;
+}
+
+.segment-btn:hover {
+  color: var(--text-primary);
+}
+
+.segment-btn.active {
+  background: var(--bg-surface);
+  color: var(--text-primary);
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08);
+}
+
+.segment-badge {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 1px 5px;
+  border-radius: var(--radius-pill);
+  background: var(--brand-blue-subtle);
+  color: var(--brand-blue);
+}
+
+/* ==============================================================================
+   3. Studio Cards
+   ============================================================================== */
+.studio-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-card);
+  padding: 18px;
+  box-shadow: var(--shadow-card);
+  margin-bottom: 14px;
+}
+
+.studio-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.studio-card-title {
+  font-size: 13.5px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Tab Panes */
+.tab-pane {
+  display: none;
+  animation: fadeIn 0.15s ease-out;
+}
+
+.tab-pane.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(2px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==============================================================================
+   4. Buttons
+   ============================================================================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-family: inherit;
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  height: var(--height-control);
+  padding: 0 13px;
+  border-radius: var(--radius-btn);
+  cursor: pointer;
+  transition: var(--transition);
+  text-decoration: none;
+  outline: none;
+  border: 1px solid transparent;
+  user-select: none;
+}
+
+.btn-primary {
+  background: var(--brand-blue);
+  color: #ffffff;
+  border-color: var(--brand-blue-hover);
+  box-shadow: var(--shadow-btn);
+}
+
+.btn-primary:hover {
+  background: var(--brand-blue-hover);
+}
+
+.btn-primary:active { transform: translateY(1px); }
+
+.btn-wa {
+  background: var(--brand-wa);
+  color: #ffffff;
+  border-color: var(--brand-wa-hover);
+  box-shadow: var(--shadow-btn-wa);
+}
+
+.btn-wa:hover {
+  background: var(--brand-wa-hover);
+}
+
+.btn-wa:active { transform: translateY(1px); }
+
+.btn-secondary {
+  background: var(--bg-input);
+  color: var(--text-primary);
+  border: 1px solid var(--border-subtle);
+}
+
+.btn-secondary:hover {
+  background: var(--bg-hover);
+  border-color: var(--border-medium);
+}
+
+.btn-secondary:active { transform: translateY(1px); }
+
+.btn-danger {
+  background: var(--brand-red-subtle);
+  color: var(--brand-red);
+  border: 1px solid var(--brand-red-border);
+}
+
+.btn-danger:hover {
+  background: var(--brand-red);
+  color: #fff;
+}
+
+/* ==============================================================================
+   5. Form Controls
+   ============================================================================== */
+.form-group {
+  margin-bottom: 11px;
+}
+
+.form-label {
+  display: block;
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+}
+
+.form-control {
+  width: 100%;
+  height: var(--height-control);
+  padding: 0 11px;
+  font-family: inherit;
+  font-size: 13px;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+  background: var(--bg-input);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-input);
+  transition: var(--transition);
+  outline: none;
+}
+
+.form-control:focus {
+  background: var(--bg-input-focus);
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.form-control::placeholder {
+  color: var(--text-quaternary);
+}
+
+textarea.form-control {
+  height: auto;
+  min-height: 68px;
+  padding: 8px 11px;
+  resize: vertical;
+  line-height: 1.45;
+}
+
+/* Result Box */
+.result-box {
+  padding: 9px 12px;
+  border-radius: var(--radius-tag);
+  margin-top: 10px;
+  font-size: 12px;
+  font-weight: 500;
+  display: none;
+}
+
+.result-box.success {
+  display: block;
+  background: var(--brand-wa-subtle);
+  border: 1px solid var(--brand-wa-border);
+  color: var(--brand-wa-dark);
+}
+
+.result-box.error {
+  display: block;
+  background: var(--brand-red-subtle);
+  border: 1px solid var(--brand-red-border);
+  color: var(--brand-red);
+}
+
+/* ==============================================================================
+   6. WhatsApp Simulator
+   ============================================================================== */
+.wa-sim-container {
+  background: #ffffff;
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+}
+
+.wa-sim-header {
+  background: #ffffff;
+  padding: 9px 13px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.wa-sim-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--brand-wa-subtle);
+  color: var(--brand-wa);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wa-sim-canvas {
+  height: 380px;
+  overflow-y: auto;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  background: #efeae2 url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23dcd6cd' fill-opacity='0.35' fill-rule='evenodd'%3E%3Cpath d='M0 40L40 0H20L0 20M40 40V20L20 40'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+.wa-bubble-outbound {
+  align-self: flex-end;
+  max-width: 85%;
+  background: #d9fdd3;
+  color: #111b21;
+  border-radius: 9px 9px 2px 9px;
+  padding: 7px 11px;
+  font-size: 12.5px;
+  line-height: 1.4;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05);
+}
+
+.wa-bubble-inbound {
+  align-self: flex-start;
+  max-width: 85%;
+  background: #ffffff;
+  color: #111b21;
+  border-radius: 9px 9px 9px 2px;
+  padding: 7px 11px;
+  font-size: 12.5px;
+  line-height: 1.4;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05);
+}
+
+.wa-header-text {
+  font-weight: 700;
+  font-size: 12px;
+  color: #008069;
+  margin-bottom: 2px;
+}
+
+.wa-footer-text {
+  font-size: 10px;
+  color: #667781;
+  margin-top: 4px;
+}
+
+.wa-buttons-container {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 7px;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  padding-top: 5px;
+}
+
+.wa-interactive-btn {
+  background: #ffffff;
+  border: 1px solid rgba(0, 128, 105, 0.25);
+  color: #008069;
+  padding: 5px 9px;
+  border-radius: var(--radius-tag);
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+  width: 100%;
+}
+
+.wa-interactive-btn:hover {
+  background: #008069;
+  color: #ffffff;
+}
+
+.wa-interactive-btn:active { transform: translateY(1px); }
+
+.wa-selected-badge {
+  display: inline-block;
+  background: var(--brand-wa-subtle);
+  color: var(--brand-wa-dark);
+  border: 1px solid var(--brand-wa-border);
+  padding: 2px 6px;
+  border-radius: var(--radius-tag);
+  font-size: 10.5px;
+  font-weight: 600;
+  margin-top: 4px;
+}
+
+.wa-sim-input-bar {
+  background: #ffffff;
+  padding: 9px 11px;
+  border-top: 1px solid var(--border-subtle);
+}
+
+/* ==============================================================================
+   7. Code Snippets & Tooltips
+   ============================================================================== */
+.tooltip-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--bg-input);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-tertiary);
+  font-size: 10px;
+  font-weight: 700;
+  cursor: help;
+  position: relative;
+  margin-left: 4px;
+}
+
+.tooltip-trigger:hover::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--slate-900);
+  color: #ffffff;
+  padding: 5px 9px;
+  border-radius: var(--radius-tag);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.2);
+  z-index: 100;
+  pointer-events: none;
+}
+
+.code-tag {
+  background: var(--brand-blue-subtle);
+  border: 1px solid var(--brand-blue-border);
+  color: var(--brand-blue);
+  padding: 2px 6px;
+  border-radius: var(--radius-tag);
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: -0.02em;
+}
+
+.code-block-wrapper {
+  background: var(--slate-950);
+  border: 1px solid var(--slate-800);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  margin-top: 8px;
+}
+
+.code-block-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 11px;
+  background: rgba(255, 255, 255, 0.04);
+  border-bottom: 1px solid var(--slate-800);
+  font-size: 11.5px;
+  color: var(--slate-400);
+}
+
+pre.code-content {
+  padding: 11px 13px;
+  color: var(--slate-200);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  line-height: 1.5;
+  letter-spacing: -0.02em;
+  overflow-x: auto;
+}
+
+.copy-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #fff;
+  padding: 2px 7px;
+  border-radius: var(--radius-tag);
+  font-family: inherit;
+  font-size: 10.5px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+/* ==============================================================================
+   8. Slide-Over Settings Drawer
+   ============================================================================== */
+.drawer-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(15, 23, 42, 0.35);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 1000;
+  display: none;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.drawer-backdrop.active {
+  display: block;
+  opacity: 1;
+}
+
+.slide-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 440px;
+  max-width: 90vw;
+  height: 100%;
+  background: #ffffff;
+  box-shadow: var(--shadow-drawer);
+  z-index: 1001;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.slide-drawer.active {
+  transform: translateX(0);
+}
+
+.drawer-header {
+  padding: 13px 17px;
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.drawer-body {
+  padding: 17px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.drawer-close {
+  background: var(--bg-input);
+  border: 1px solid var(--border-subtle);
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+}
+
+.drawer-close:hover {
+  background: var(--bg-hover);
+}

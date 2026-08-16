@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OpenNotify — Enterprise Customer Communication & Auth Gateway</title>
+  <link rel="stylesheet" href="/studio.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22%230071e3%22><path d=%22M13 2L3 14h9l-1 8 10-12h-9l1-8z%22/></svg>">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Minimal Header -->
+    <header class="app-header">
+      <div class="brand-wrapper">
+        <div class="brand-icon">
+          <svg class="icon icon-sm" viewBox="0 0 24 24" fill="#ffffff">
+            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+          </svg>
+        </div>
+        <div>
+          <div class="brand-title">OpenNotify</div>
+        </div>
+      </div>
+
+      <!-- Center Compact Status Ribbon -->
+      <div class="header-actions">
+        <div class="status-chip">
+          <span class="status-dot"></span>
+          <span>Online</span>
+          <span style="color: var(--text-quaternary);">·</span>
+          <span id="stat-db-mode" style="color: var(--apple-blue);">SQLite</span>
+          <span class="tooltip-trigger" data-tooltip="Local zero-setup database. Connect Supabase in Settings.">?</span>
+        </div>
+
+        <div class="status-chip">
+          <span>Sent: <strong id="stat-sent-total">0</strong></span>
+        </div>
+
+        <button class="btn btn-secondary" id="btn-open-settings" style="padding: 6px 12px;">
+          <svg class="icon icon-sm icon-stroke" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+          </svg>
+          <span>Gateways</span>
+        </button>
+
+        <button class="btn btn-primary" id="btn-test-widget">
+          <svg class="icon icon-sm" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2l2.4 7.2h7.6l-6 4.8 2.4 7.2-6.4-4.8-6.4 4.8 2.4-7.2-6-4.8h7.6z"/>
+          </svg>
+          <span>Modal Widget</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Consolidated 4-Tab Navigation -->
+    <div class="segmented-nav">
+      <div class="segmented-group">
+        <button class="segment-btn active" data-tab="whatsapp-studio">
+          <svg class="icon icon-sm" viewBox="0 0 24 24" fill="#25D366">
+            <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm0 18.15c-1.49 0-2.95-.4-4.22-1.15l-.3-.18-3.13.82.83-3.05-.2-.31a8.16 8.16 0 0 1-1.25-4.38c0-4.51 3.67-8.18 8.18-8.18 2.19 0 4.24.85 5.79 2.4 1.54 1.55 2.4 3.6 2.4 5.79 0 4.51-3.67 8.18-8.18 8.18z"/>
+          </svg>
+          <span>WhatsApp Studio</span>
+        </button>
+
+        <button class="segment-btn" data-tab="auth-playground">
+          <svg class="icon icon-sm icon-stroke" viewBox="0 0 24 24">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+          <span>Auth Playground</span>
+        </button>
+
+        <button class="segment-btn" data-tab="dev-inboxes">
+          <svg class="icon icon-sm icon-stroke" viewBox="0 0 24 24">
+            <polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/>
+            <path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/>
+          </svg>
+          <span>Live Inboxes</span>
+          <span class="segment-badge" id="total-inbox-badge">0</span>
+        </button>
+
+        <button class="segment-btn" data-tab="code-snippets">
+          <svg class="icon icon-sm icon-stroke" viewBox="0 0 24 24">
+            <polyline points="16 18 22 12 16 6"/>
+            <polyline points="8 6 2 12 8 18"/>
+          </svg>
+          <span>Embed SDK</span>
+        </button>
+      </div>
+
+      <!-- Quick Action: Dispatch Test Template -->
+      <button class="btn btn-wa" id="btn-wa-quick-test" style="font-size: 12px; padding: 6px 12px;">
+        <svg class="icon icon-sm" viewBox="0 0 24 24" fill="#ffffff"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        <span>Test Buttons in Simulator</span>
+      </button>
+    </div>
+
+    <!-- =========================================================================
+         VIEW 1: WHATSAPP STUDIO (Interactive Builder + Clickable Simulator)
+         ========================================================================= -->
+    <div class="tab-pane active" id="tab-whatsapp-studio">
+      <div style="display: grid; grid-template-columns: 1.1fr 1fr; gap: 16px; align-items: start;">
+        <!-- Left Column: Template Builder & Saved Templates -->
+        <div style="display: flex; flex-direction: column; gap: 16px;">
+          <div class="studio-card">
+            <div class="studio-card-header">
+              <div class="studio-card-title">
+                <svg class="icon icon-stroke icon-wa" viewBox="0 0 24 24">
+                  <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                  <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                </svg>
+                <span>Interactive Template Builder</span>
+                <span class="tooltip-trigger" data-tooltip="Compliant with Meta WhatsApp Cloud API button specifications">?</span>
+              </div>
+            </div>
+            
+            <form id="form-wa-template">
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                <div class="form-group">
+                  <label class="form-label">Template ID</label>
+                  <input type="text" id="wa-tpl-id" class="form-control" placeholder="e.g. order_confirm" required />
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Template Name</label>
+                  <input type="text" id="wa-tpl-name" class="form-control" placeholder="Order Confirmation" required />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Message Body</label>
+                <textarea id="wa-tpl-body" class="form-control" rows="2" placeholder="Hi {{customer_name}}, your order #{{order_id}} for {{amount}} is ready!" required></textarea>
+                <div style="display: flex; gap: 4px; margin-top: 4px;">
+                  <span class="code-tag" onclick="insertWaVar('customer_name')">+ {{customer_name}}</span>
+                  <span class="code-tag" onclick="insertWaVar('order_id')">+ {{order_id}}</span>
+                  <span class="code-tag" onclick="insertWaVar('amount')">+ {{amount}}</span>
+                </div>
+              </div>
+
+              <!-- Clickable Buttons Config -->
+              <div style="border-top: 1px solid var(--border-subtle); padding-top: 10px; margin-top: 10px;">
+                <label class="form-label" style="display: flex; justify-content: space-between; align-items: center;">
+                  <span>Clickable Action Buttons (Max 3)</span>
+                  <span class="tooltip-trigger" data-tooltip="Buttons tap-enabled on user phones. Triggers instant automated branch reply.">?</span>
+                </label>
+
+                <!-- Button 1 -->
+                <div style="background: var(--bg-canvas); border: 1px solid var(--border-subtle); border-radius: var(--radius-xs); padding: 8px; margin-bottom: 6px;">
+                  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 4px;">
+                    <input type="text" id="wa-btn1-title" class="form-control" placeholder="Title: Confirm Order" value="Confirm Order" style="font-size: 12px; padding: 5px 8px;" />
+                    <input type="text" id="wa-btn1-id" class="form-control" placeholder="ID: btn_confirm" value="btn_confirm" style="font-size: 12px; padding: 5px 8px;" />
+                  </div>
+                  <input type="text" id="wa-btn1-reply" class="form-control" placeholder="Automated Reply: Thank you! Order confirmed." value="Thank you! Your order has been confirmed." style="font-size: 12px; padding: 5px 8px;" />
+                </div>
+
+                <!-- Button 2 -->
+                <div style="background: var(--bg-canvas); border: 1px solid var(--border-subtle); border-radius: var(--radius-xs); padding: 8px;">
+                  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 4px;">
+                    <input type="text" id="wa-btn2-title" class="form-control" placeholder="Title: Reschedule" value="Reschedule" style="font-size: 12px; padding: 5px 8px;" />
+                    <input type="text" id="wa-btn2-id" class="form-control" placeholder="ID: btn_reschedule" value="btn_reschedule" style="font-size: 12px; padding: 5px 8px;" />
+                  </div>
+                  <input type="text" id="wa-btn2-reply" class="form-control" placeholder="Automated Reply" value="Please reply with your preferred delivery date." style="font-size: 12px; padding: 5px 8px;" />
+                </div>
+              </div>
+
+              <div style="display: flex; gap: 8px; margin-top: 12px;">
+                <button type="submit" class="btn btn-wa" style="flex: 1;">Save Template</button>
+                <button type="button" class="btn btn-secondary" id="btn-wa-clear-form">Clear</button>
+              </div>
+              <div id="wa-save-result" class="result-box"></div>
+            </form>
+          </div>
+
+          <!-- Saved Templates Accordion/List -->
+          <div class="studio-card">
+            <div class="studio-card-header">
+              <div class="studio-card-title">Saved Templates</div>
+              <span class="status-pill" id="wa-template-count">3 Templates</span>
+            </div>
+            <div id="wa-templates-list" style="display: flex; flex-direction: column; gap: 8px; max-height: 240px; overflow-y: auto;">
+              <!-- Populated via JS -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Live Interactive WhatsApp Simulator -->
+        <div>
+          <div class="wa-sim-container">
+            <div class="wa-sim-header">
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <div class="wa-sim-avatar">
+                  <svg class="icon icon-sm" viewBox="0 0 24 24" fill="#128C7E">
+                    <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm0 18.15c-1.49 0-2.95-.4-4.22-1.15l-.3-.18-3.13.82.83-3.05-.2-.31a8.16 8.16 0 0 1-1.25-4.38c0-4.51 3.67-8.18 8.18-8.18 2.19 0 4.24.85 5.79 2.4 1.54 1.55 2.4 3.6 2.4 5.79 0 4.51-3.67 8.18-8.18 8.18z"/>
+                  </svg>
+                </div>
+                <div>
+                  <div style="font-weight: 700; font-size: 13px; color: var(--text-primary);">OpenNotify Assistant</div>
+                  <div style="font-size: 10.5px; color: var(--apple-wa-dark); font-weight: 600;">● Online</div>
+                </div>
+              </div>
+              <button class="btn btn-secondary" id="btn-wa-clear-sim" style="font-size: 11px; padding: 3px 8px;">Clear</button>
+            </div>
+
+            <div class="wa-sim-canvas" id="wa-sim-feed">
+              <!-- Rendered messages & interactive clickable buttons appear here -->
+            </div>
+
+            <div class="wa-sim-input-bar">
+              <div style="display: flex; gap: 4px; margin-bottom: 6px;">
+                <button class="btn btn-secondary" onclick="simulateWaKeyword('menu')" style="font-size: 10.5px; padding: 2px 6px;">"menu"</button>
+                <button class="btn btn-secondary" onclick="simulateWaKeyword('order')" style="font-size: 10.5px; padding: 2px 6px;">"order"</button>
+                <button class="btn btn-secondary" onclick="simulateWaKeyword('help')" style="font-size: 10.5px; padding: 2px 6px;">"help"</button>
+              </div>
+              <form id="form-wa-sim-send" style="display: flex; gap: 6px;">
+                <input type="text" id="wa-sim-input" class="form-control" placeholder="Type message or click buttons..." style="background: var(--bg-input); font-size: 12.5px; padding: 6px 10px;" />
+                <button type="submit" class="btn btn-wa" style="padding: 0 12px;">
+                  <svg class="icon icon-sm icon-stroke" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- =========================================================================
+         VIEW 2: AUTH PLAYGROUND
+         ========================================================================= -->
+    <div class="tab-pane" id="tab-auth-playground">
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+        <!-- Step 1: Send OTP -->
+        <div class="studio-card">
+          <div class="studio-card-header">
+            <div class="studio-card-title">1. Request Authentication</div>
+          </div>
+          <form id="form-send-otp">
+            <div class="form-group">
+              <label class="form-label">Email Address</label>
+              <input type="email" id="test-auth-email" class="form-control" placeholder="developer@example.com" value="developer@example.com" required />
+            </div>
+            <div style="display: flex; gap: 8px; margin-top: 14px;">
+              <button type="submit" class="btn btn-primary" style="flex: 1;">Send 6-Digit OTP</button>
+              <button type="button" class="btn btn-secondary" id="btn-send-magic">Send Magic Link</button>
+            </div>
+            <div id="otp-send-result" class="result-box"></div>
+          </form>
+
+          <div style="border-top: 1px solid var(--border-subtle); margin-top: 16px; padding-top: 12px;">
+            <label class="form-label">Or Test Mobile Phone SMS</label>
+            <form id="form-send-sms-otp" style="display: flex; gap: 6px;">
+              <input type="text" id="test-auth-phone" class="form-control" placeholder="+18005550199" value="+18005550199" required />
+              <button type="submit" class="btn btn-secondary" style="white-space: nowrap;">Send SMS</button>
+            </form>
+            <div id="sms-otp-send-result" class="result-box"></div>
+          </div>
+        </div>
+
+        <!-- Step 2: Verify Code -->
+        <div class="studio-card">
+          <div class="studio-card-header">
+            <div class="studio-card-title">2. Verify Token & Session</div>
+          </div>
+          <form id="form-verify-otp">
+            <div class="form-group">
+              <label class="form-label">Email or Phone</label>
+              <input type="text" id="test-verify-identifier" class="form-control" placeholder="developer@example.com" value="developer@example.com" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label">6-Digit Code</label>
+              <input type="text" id="test-auth-code" class="form-control" placeholder="123456" maxlength="6" style="letter-spacing: 4px; font-size: 16px; font-weight: 700; text-align: center;" required />
+            </div>
+            <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 6px;">Verify & Authenticate</button>
+            <div id="otp-verify-result" class="result-box"></div>
+          </form>
+
+          <div id="auth-session-box" style="display: none; margin-top: 14px; padding: 10px; background: var(--bg-input); border-radius: var(--radius-xs);">
+            <div style="font-size: 11px; font-weight: 700; color: var(--apple-blue); margin-bottom: 4px;">ACTIVE JWT SESSION</div>
+            <div style="font-size: 11px; color: var(--text-secondary); word-break: break-all; font-family: monospace;" id="auth-session-jwt"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- =========================================================================
+         VIEW 3: CONSOLIDATED LIVE DEV INBOXES (WhatsApp / SMS / Mailbox)
+         ========================================================================= -->
+    <div class="tab-pane" id="tab-dev-inboxes">
+      <div class="studio-card">
+        <div class="studio-card-header">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <div class="segmented-group" style="padding: 2px;">
+              <button class="segment-btn active" id="btn-inbox-tab-wa" onclick="switchInboxStream('wa')">WhatsApp Feed</button>
+              <button class="segment-btn" id="btn-inbox-tab-sms" onclick="switchInboxStream('sms')">SMS Phone</button>
+              <button class="segment-btn" id="btn-inbox-tab-mail" onclick="switchInboxStream('mail')">Mailbox</button>
+            </div>
+          </div>
+          <div style="display: flex; gap: 6px;">
+            <button class="btn btn-secondary" id="btn-refresh-inboxes">Refresh</button>
+            <button class="btn btn-danger" id="btn-clear-inboxes">Clear</button>
+          </div>
+        </div>
+
+        <!-- WhatsApp Stream -->
+        <div id="stream-wa-feed" style="display: flex; flex-direction: column; gap: 8px;">
+          <!-- Populated via JS -->
+        </div>
+
+        <!-- SMS Stream -->
+        <div id="stream-sms-feed" style="display: none; flex-direction: column; gap: 8px;">
+          <!-- Populated via JS -->
+        </div>
+
+        <!-- Mailbox Stream -->
+        <div id="stream-mail-feed" style="display: none; flex-direction: column; gap: 8px;">
+          <!-- Populated via JS -->
+        </div>
+      </div>
+    </div>
+
+    <!-- =========================================================================
+         VIEW 4: EMBED SDK & CODE SNIPPETS
+         ========================================================================= -->
+    <div class="tab-pane" id="tab-code-snippets">
+      <div class="studio-card">
+        <div class="studio-card-header">
+          <div class="studio-card-title">Drop-In Integration Snippets</div>
+        </div>
+
+        <div style="margin-bottom: 16px;">
+          <h4 style="font-size: 13px; font-weight: 700; color: var(--text-primary); margin-bottom: 6px;">1-Line HTML / Vanilla JS Widget</h4>
+          <div class="code-block-wrapper">
+            <div class="code-block-header">
+              <span>Vanilla HTML</span>
+              <button class="copy-btn" data-target="code-vanilla">Copy</button>
+            </div>
+            <pre class="code-content" id="code-vanilla">&lt;script src="http://localhost:3000/widget/notif-auth-widget.js"&gt;&lt;/script&gt;
+&lt;button onclick="OpenNotifyWidget.open({ appName: 'My Website' })"&gt;Sign In&lt;/button&gt;</pre>
+          </div>
+        </div>
+
+        <div>
+          <h4 style="font-size: 13px; font-weight: 700; color: var(--text-primary); margin-bottom: 6px;">React / Next.js Component</h4>
+          <div class="code-block-wrapper">
+            <div class="code-block-header">
+              <span>React / Next.js</span>
+              <button class="copy-btn" data-target="code-react">Copy</button>
+            </div>
+            <pre class="code-content" id="code-react">export function LoginButton() {
+  return (
+    &lt;button onClick={() => window.OpenNotifyWidget?.open({ appName: 'My SaaS' })}&gt;
+      Sign In
+    &lt;/button&gt;
+  );
+}</pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       SLIDE-OVER SETTINGS DRAWER (Summoned on-demand when user clicks Gateways)
+       ========================================================================= -->
+  <div class="drawer-backdrop" id="drawer-backdrop"></div>
+  <div class="slide-drawer" id="settings-drawer">
+    <div class="drawer-header">
+      <div style="font-weight: 700; font-size: 15px; color: var(--text-primary); display: flex; align-items: center; gap: 8px;">
+        <svg class="icon icon-sm icon-stroke" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        <span>Gateway & Production Settings</span>
+      </div>
+      <button class="drawer-close" id="btn-close-settings">&times;</button>
+    </div>
+
+    <div class="drawer-body">
+      <!-- WhatsApp Settings -->
+      <div style="margin-bottom: 24px;">
+        <h4 style="font-size: 13.5px; font-weight: 700; color: var(--apple-wa-dark); margin-bottom: 8px;">WhatsApp Cloud API</h4>
+        <form id="form-wa-config">
+          <div class="form-group">
+            <label class="form-label">Provider Mode</label>
+            <select id="cfg-wa-provider" class="form-control">
+              <option value="dev">Virtual Dev Simulator (100% Free)</option>
+              <option value="meta">Meta Cloud API (Graph v18.0)</option>
+              <option value="twilio">Twilio WhatsApp</option>
+            </select>
+          </div>
+          <div id="cfg-wa-meta-fields" style="display: none;">
+            <div class="form-group">
+              <label class="form-label">Meta Phone Number ID</label>
+              <input type="text" id="cfg-wa-meta-phone-id" class="form-control" placeholder="109849201948201" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">System Access Token</label>
+              <input type="password" id="cfg-wa-meta-token" class="form-control" placeholder="EAAB..." />
+            </div>
+          </div>
+          <button type="submit" class="btn btn-wa" style="width: 100%; margin-top: 6px;">Save WhatsApp Gateway</button>
+        </form>
+      </div>
+
+      <!-- Email Settings -->
+      <div style="margin-bottom: 24px; border-top: 1px solid var(--border-subtle); padding-top: 16px;">
+        <h4 style="font-size: 13.5px; font-weight: 700; color: var(--apple-blue); margin-bottom: 8px;">Email SMTP / Resend</h4>
+        <form id="form-mailer-config">
+          <div class="form-group">
+            <label class="form-label">Active Provider</label>
+            <select id="cfg-mail-provider" class="form-control">
+              <option value="dev">Dev Mailbox Simulator</option>
+              <option value="smtp">Gmail / Custom SMTP</option>
+              <option value="resend">Resend.com API</option>
+            </select>
+          </div>
+          <div id="cfg-smtp-fields" style="display: none;">
+            <div class="form-group">
+              <label class="form-label">SMTP User</label>
+              <input type="text" id="cfg-smtp-user" class="form-control" placeholder="you@gmail.com" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">SMTP Password</label>
+              <input type="password" id="cfg-smtp-pass" class="form-control" placeholder="Google App Password" />
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 6px;">Save Email Gateway</button>
+        </form>
+      </div>
+
+      <!-- Supabase Cloud Sync -->
+      <div style="border-top: 1px solid var(--border-subtle); padding-top: 16px;">
+        <h4 style="font-size: 13.5px; font-weight: 700; color: #3ECF8E; margin-bottom: 6px;">Supabase Database Connection</h4>
+        <p style="font-size: 12px; color: var(--text-secondary); line-height: 1.4; margin-bottom: 8px;">
+          Set <code class="code-tag">DATABASE_TYPE=supabase</code> and add <code class="code-tag">SUPABASE_URL</code> in your <code class="code-tag">.env</code> to activate cloud sync.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="/widget/notif-auth-sdk.js"></script>
+  <script src="/widget/notif-auth-widget.js"></script>
+  <script src="/studio.js"></script>
+</body>
+</html>
