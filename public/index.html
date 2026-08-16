@@ -317,40 +317,110 @@
     </div>
 
     <!-- =========================================================================
-         VIEW 4: EMBED SDK & CODE SNIPPETS
+         VIEW 4: EMBED SDK & COMPLETE INTEGRATION GUIDE
          ========================================================================= -->
     <div class="tab-pane" id="tab-code-snippets">
       <div class="studio-card">
         <div class="studio-card-header">
-          <div class="studio-card-title">Drop-In Integration Snippets</div>
+          <div class="studio-card-title">📖 Complete In-House Integration & Setup Guide</div>
+          <span class="status-chip">Zero Vendor Fees</span>
         </div>
 
-        <div style="margin-bottom: 16px;">
-          <h4 style="font-size: 13px; font-weight: 700; color: var(--text-primary); margin-bottom: 6px;">1-Line HTML / Vanilla JS Widget</h4>
+        <!-- 1. Frontend Login Modal -->
+        <div style="margin-bottom: 20px;">
+          <h4 style="font-size: 13.5px; font-weight: 700; color: var(--text-primary); margin-bottom: 4px;">1. Embed Login Modal into your Website (HTML / React / Next.js)</h4>
+          <p style="font-size: 12px; color: var(--text-secondary); margin-bottom: 8px;">
+            Add this 1-line script to any webpage to show an Apple-style Email OTP and SMS login modal. You get the authenticated user ID and JWT session immediately.
+          </p>
+
           <div class="code-block-wrapper">
             <div class="code-block-header">
-              <span>Vanilla HTML</span>
+              <span>Vanilla HTML / Webflow / WordPress</span>
               <button class="copy-btn" data-target="code-vanilla">Copy</button>
             </div>
-            <pre class="code-content" id="code-vanilla">&lt;script src="http://localhost:3000/widget/notif-auth-widget.js"&gt;&lt;/script&gt;
-&lt;button onclick="OpenNotifyWidget.open({ appName: 'My Website' })"&gt;Sign In&lt;/button&gt;</pre>
+            <pre class="code-content" id="code-vanilla">&lt;!-- 1. Include OpenNotify SDK --&gt;
+&lt;script src="http://localhost:3000/widget/notif-auth-widget.js"&gt;&lt;/script&gt;
+
+&lt;!-- 2. Trigger Login Modal on Click --&gt;
+&lt;button onclick="OpenNotifyWidget.open({
+  appName: 'My In-House App',
+  onAuthSuccess: (user, token) => {
+    console.log('Logged in user:', user);
+    localStorage.setItem('auth_token', token);
+    window.location.href = '/dashboard';
+  }
+})"&gt;Sign In with Email / SMS&lt;/button&gt;</pre>
+          </div>
+
+          <div class="code-block-wrapper" style="margin-top: 10px;">
+            <div class="code-block-header">
+              <span>React / Next.js Component</span>
+              <button class="copy-btn" data-target="code-react">Copy</button>
+            </div>
+            <pre class="code-content" id="code-react">import { useEffect } from 'react';
+
+export function LoginButton() {
+  const handleLogin = () => {
+    window.OpenNotifyWidget?.open({
+      appName: 'My SaaS App',
+      onAuthSuccess: (user, token) => {
+        localStorage.setItem('session_token', token);
+        window.location.reload();
+      }
+    });
+  };
+
+  return &lt;button onClick={handleLogin}&gt;Sign In&lt;/button&gt;;
+}</pre>
           </div>
         </div>
 
-        <div>
-          <h4 style="font-size: 13px; font-weight: 700; color: var(--text-primary); margin-bottom: 6px;">React / Next.js Component</h4>
+        <!-- 2. Backend WhatsApp Interactive Dispatch -->
+        <div style="margin-bottom: 20px; border-top: 1px solid var(--border-subtle); padding-top: 16px;">
+          <h4 style="font-size: 13.5px; font-weight: 700; color: var(--brand-wa-dark); margin-bottom: 4px;">2. Send Interactive WhatsApp Messages with Clickable Buttons (Backend API)</h4>
+          <p style="font-size: 12px; color: var(--text-secondary); margin-bottom: 8px;">
+            Trigger order confirmations, booking reminders, or support menus from your backend (Node.js, Python, PHP, or Go):
+          </p>
+
           <div class="code-block-wrapper">
             <div class="code-block-header">
-              <span>React / Next.js</span>
-              <button class="copy-btn" data-target="code-react">Copy</button>
+              <span>Node.js / Express / Next.js Server Action</span>
+              <button class="copy-btn" data-target="code-wa-backend">Copy</button>
             </div>
-            <pre class="code-content" id="code-react">export function LoginButton() {
-  return (
-    &lt;button onClick={() => window.OpenNotifyWidget?.open({ appName: 'My SaaS' })}&gt;
-      Sign In
-    &lt;/button&gt;
-  );
-}</pre>
+            <pre class="code-content" id="code-wa-backend">// Trigger interactive WhatsApp message with buttons
+await fetch('http://localhost:3000/api/whatsapp/send', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    to: '+18005550199',
+    templateId: 'wa_order_confirm',
+    variables: { customer_name: 'Alex', order_id: '9842', amount: '$49.00' }
+  })
+});</pre>
+          </div>
+        </div>
+
+        <!-- 3. Multi-Database Storage Selection -->
+        <div style="border-top: 1px solid var(--border-subtle); padding-top: 16px;">
+          <h4 style="font-size: 13.5px; font-weight: 700; color: var(--brand-blue); margin-bottom: 4px;">3. Multi-Database Setup & In-House Control</h4>
+          <p style="font-size: 12px; color: var(--text-secondary); margin-bottom: 8px;">
+            OpenNotify gives you total in-house control. No passwords or credentials ever leave your server.
+          </p>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px;">
+            <div style="background: var(--bg-input); border: 1px solid var(--border-subtle); border-radius: var(--radius-tag); padding: 12px;">
+              <strong style="font-size: 12.5px; color: var(--text-primary);">Option A: Free Local SQLite (Default)</strong>
+              <p style="font-size: 11.5px; color: var(--text-secondary); margin-top: 4px; line-height: 1.4;">
+                Runs out of the box with zero external accounts. Stores data locally in <code>./data/</code> with automatic table seeding.
+              </p>
+            </div>
+
+            <div style="background: var(--bg-input); border: 1px solid var(--border-subtle); border-radius: var(--radius-tag); padding: 12px;">
+              <strong style="font-size: 12.5px; color: var(--brand-emerald);">Option B: Supabase Cloud PostgreSQL</strong>
+              <p style="font-size: 11.5px; color: var(--text-secondary); margin-top: 4px; line-height: 1.4;">
+                Set <code>DATABASE_TYPE=supabase</code> in <code>.env</code> and run <code>supabase_schema.sql</code> in your Supabase SQL Editor.
+              </p>
+            </div>
           </div>
         </div>
       </div>
