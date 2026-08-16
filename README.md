@@ -1,6 +1,19 @@
 # ⚡ OpenNotify — Enterprise Customer Communication & In-House Auth Gateway
 
-An open-source, production-ready **Unified In-House Authentication & Multi-Channel Notification Gateway** (Email, SMS & Interactive WhatsApp with Clickable Buttons) featuring a Zero-Config SQLite local engine and native **Supabase PostgreSQL** cloud sync.
+<div align="center">
+
+[![GitHub Stars](https://img.shields.io/github/stars/vedantpande0704-cloud/notifier?style=for-the-badge&logo=github&color=blue)](https://github.com/vedantpande0704-cloud/notifier/stargazers)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.8-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/)
+[![Node.js](https://img.shields.io/badge/Node.js-18+-339933?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)
+
+**A Unified Zero-Cost Customer Communication & Auth Engine**  
+*Email OTPs · SMS · Interactive WhatsApp with Clickable Buttons · SQLite / Supabase PostgreSQL*
+
+[**Explore Demo Studio**](http://localhost:3000) · [**Database Integration Guide**](docs/DATABASE_INTEGRATION_GUIDE.md) · [**Report Issue**](https://github.com/vedantpande0704-cloud/notifier/issues)
+
+</div>
 
 ---
 
@@ -140,5 +153,11 @@ node test_suite.mjs
 
 ---
 
+## ⭐ Support OpenNotify
+If you find OpenNotify useful for your projects or want to support open-source developer tools, please consider giving us a **⭐️ Star on GitHub**!
+
+---
+
 ## 📄 License
 MIT License. Free to use, modify, and self-host for personal and commercial applications.
+
